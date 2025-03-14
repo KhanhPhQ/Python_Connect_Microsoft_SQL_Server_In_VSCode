@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/9b91e194-6763-4d96-a1b3-0d33f5672c49)# Python_Connect_Microsoft_SQL_Server_On_VSCode
+# Python_Connect_Microsoft_SQL_Server_On_VSCode
 Kết nối Microsoft SQL Server trên VSCode
 
 # Tạo User Login Microsoft SQL Server và khởi động lại dịch vụ SQL Server
