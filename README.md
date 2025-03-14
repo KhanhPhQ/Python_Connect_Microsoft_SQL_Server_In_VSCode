@@ -43,7 +43,7 @@ Kết nối Microsoft SQL Server trên VSCode
 
 ![image](https://github.com/user-attachments/assets/7275eff8-8d8d-4b91-894f-c1a05f7a8788)
 
-# Cài đặt thư viện
+# Cài đặt thư viện trên VSCode
 ```bash
 pip install --upgrade pyodbc
 ```
