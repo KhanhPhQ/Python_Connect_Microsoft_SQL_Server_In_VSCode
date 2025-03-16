@@ -1,4 +1,4 @@
-# Python_Connect_Microsoft_SQL_Server_On_VSCode
+# [Python] Kết Nối Microsoft SQL Server Trong VSCode
 Kết nối Microsoft SQL Server trên VSCode
 
 # Tạo User Login Microsoft SQL Server và khởi động lại dịch vụ SQL Server
