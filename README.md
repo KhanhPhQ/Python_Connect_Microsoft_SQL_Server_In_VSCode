@@ -57,3 +57,91 @@ print(pyodbc.drivers())
 ```
 ![image](https://github.com/user-attachments/assets/e1a3ff4d-7c73-4825-8cc9-d912c62441cf)
 
+# Tạo kết nối Database và lấy dữ liệu
+> Cấu trúc dự án
+
+```bash
+Dự_án/
+├── config.ini
+├── main.py
+└── utils/
+    └── database_handler.py
+```
+
+- config.ini
+```bash
+[database]
+driver = {ODBC Driver 17 for SQL Server}
+server = Server Name
+database = Database Name
+username = User Login
+password = Password
+```
+
+- main.py
+```bash
+from utils.database_handler import DatabaseHandler
+
+def main():
+    db_handler = DatabaseHandler()
+    # Lấy dữ liệu từ Database
+    if db_handler.connection:
+        get_data = db_handler.connection.cursor()
+        get_data.execute("SELECT * FROM dbo.TBL_SYMBOLS")
+        print(get_data.fetchone())
+        db_handler.close()
+
+if __name__ == "__main__":
+    main()
+```
+
+- database_handler.py
+```bash
+import os
+import configparser
+import pyodbc
+
+class DatabaseHandler:
+    def __init__(self, config_file='config.ini'):
+        self.config_file = config_file
+        self._load_config()
+        self.connection = self._connect()
+    
+    def _load_config(self):        
+        # Xác định đường dẫn tuyệt đối đến file config.ini
+        config_path = os.path.join(os.path.dirname(__file__), '..', 'config.ini')
+
+        # Tạo đối tượng configparser
+        config = configparser.ConfigParser()
+        config.read(config_path, encoding='utf-8')
+
+        # Lấy thông tin kết nối từ file cấu hình
+        self.driver = config['database']['driver']
+        self.server = config['database']['server']
+        self.database = config['database']['database']
+        self.username = config['database']['username']
+        self.password = config['database']['password']
+
+    def _connect(self):
+        # Chuỗi kết nối CSDL
+        connection_string = f"DRIVER={self.driver};SERVER={self.server};DATABASE={self.database};UID={self.username};PWD={self.password};"
+
+        # Kết nối đến CSDL
+        try:
+            connection = pyodbc.connect(connection_string)
+            print("Kết nối CSLD thành công.")
+            return connection
+        except Exception as e:
+            print(f"Lỗi kết nối CSDL: {e}")
+            return None
+
+    def close(self):
+        # Đóng kết nối CSDL
+        if self.connection:
+            self.connection.close()
+            print("Đóng kết nối CSDL.")
+```
+
+> Chạy File main.py
+
+![image](https://github.com/user-attachments/assets/db1b28a2-1975-435b-9af8-921983b302a8)
